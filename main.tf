@@ -215,5 +215,5 @@ resource "aws_security_group" "alb" {
 #get the public dns so we can test the web server
 
 output "publicdns" {
-    value = aws_lb.eskimooLB.publicdns
+    value = aws_lb.eskimooLB.dns_name
 }
