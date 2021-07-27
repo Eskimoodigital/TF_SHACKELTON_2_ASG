@@ -27,6 +27,12 @@ provider "aws" {
     region = "eu-central-1"
 }
 
+
+
+
+
+
+
 #============================GET SUBNET IDs FOR THE ASG============================================================
 
 data "aws_vpc" "default" {
@@ -39,6 +45,13 @@ data "aws_subnet_ids" "default" {
     vpc_id = data.aws_vpc.default.id
   
 }
+
+
+
+
+
+
+
 #============================ASG CONFIG============================================================
 
 
@@ -61,7 +74,7 @@ resource "aws_launch_configuration" "eskimoo16661" {
 }
 
 resource "aws_autoscaling_group" "eskimoo16661"{
-    launch_configuration = aws_launch_configuration.eskimoo16661
+    launch_configuration = aws_launch_configuration.eskimoo16661.name
     target_group_arns = [aws_lb_target_group.asg.arn]
     min_size = 2
     max_size = 4
@@ -199,7 +212,7 @@ resource "aws_security_group" "alb" {
 
 
 #get the public dns so we can test the web server
-
-output "publicdns" {
-    value = aws_instance.eskimoo16661.public_dns
-}
+#
+#output "publicdns" {
+#    value = aws_instance.eskimoo16661.public_dns
+#}
