@@ -122,10 +122,10 @@ resource "aws_security_group" "instance" {
 #============================LOAD BALANCER============================================================
 
 resource "aws_lb" "eskimooLB" {
-    name = "eskimoo_LB_example"
+    name = "eskimoo-LB-example"
     load_balancer_type = "application"
     subnets = data.aws_subnet_ids.default.ids
-    security_groups = [aws.aws_security_group.alb.id]
+    security_groups = [aws_security_group.alb.id]
   
 }
 
@@ -183,6 +183,7 @@ resource "aws_lb_target_group" "asg" {
     
   
 }
+}
 
 #============================SG REFERENCE FOR LB============================================================
 
@@ -198,7 +199,7 @@ resource "aws_security_group" "alb" {
         cidr_blocks = ["0.0.0.0/0"]
     }
     
-    }
+    
 
     egress {
         from_port        = 0
@@ -212,7 +213,7 @@ resource "aws_security_group" "alb" {
 
 
 #get the public dns so we can test the web server
-#
-#output "publicdns" {
-#    value = aws_instance.eskimoo16661.public_dns
-#}
+
+output "publicdns" {
+    value = aws_lb.eskimooLB.publicdns
+}
